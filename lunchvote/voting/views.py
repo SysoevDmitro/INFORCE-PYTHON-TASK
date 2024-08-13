@@ -17,7 +17,7 @@ class RestaurantViewSet(mixins.ListModelMixin,
                         viewsets.GenericViewSet):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 
 class MenuViewSet(mixins.ListModelMixin,
@@ -28,7 +28,7 @@ class MenuViewSet(mixins.ListModelMixin,
                   viewsets.GenericViewSet):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     @action(detail=True, methods=["post"])
     def vote(self, request, pk=None):
@@ -43,10 +43,11 @@ class MenuViewSet(mixins.ListModelMixin,
         return Response({"status": "Vote cast successfully"}, status=status.HTTP_201_CREATED)
 
 
+# Getting current day menu
 class CurrentDayMenuView(mixins.ListModelMixin,
                          generics.GenericAPIView):
     serializer_class = MenuSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Menu.objects.filter(date=date.today())
@@ -60,8 +61,9 @@ class VoteViewSet(viewsets.ModelViewSet):
     serializer_class = VoteSerializer
 
 
+# Getting results for the current day
 class CurrentDayResultsView(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     def get(self, request, *args, **kwargs):
         today = date.today()
         results = Vote.objects.filter(menu__date=today).\

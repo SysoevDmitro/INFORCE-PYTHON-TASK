@@ -12,7 +12,9 @@ router.register(r"menus", MenuViewSet)
 router.register(r"votes", VoteViewSet)
 
 urlpatterns = [
+    path("", include(router.urls)),
     path("menus/today/", CurrentDayMenuView.as_view(), name="current-day-menu"),
-    path('results/today/', CurrentDayResultsView.as_view(), name="current-day-results"),
-    path("", include(router.urls))
+    path("menus/today/results/", CurrentDayResultsView.as_view(), name="current-day-results"),
 ]
+
+app_name = "voting"
