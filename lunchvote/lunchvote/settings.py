@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     "drf_spectacular",
     "debug_toolbar",
-    "voting"
+    "voting",
+    "user",
 ]
 
 MIDDLEWARE = [
